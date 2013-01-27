@@ -1,10 +1,12 @@
 require 'open-uri'
 require 'date'
+require 'time'
+
 
 class PagesController < ApplicationController
   def home
     
-    access_token = "AAACEdEose0cBAKNb5wADklG15MEYdsDZB4w09tyKf3dogqzYZCZAbZCqJTMwZCiUDq0qr9xGxGe1PQRN04EYlZCH28Yv83lLSl9UmVyl467QZDZD"
+    access_token = "AAACEdEose0cBADl18geCDPVQzqfWHkgK9URrZBJN4qNDtBZA5pyxzouR4VRu8oZCzsfOrnECDCX6SSlOjevPJta9B9QSCPaLMjnBIuGlQZDZD"
     uri = "https://graph.facebook.com/139326516123298?fields=members.fields(events)&access_token=#{access_token}"
     results = JSON.parse(open(uri).read)
     @events = []
@@ -15,15 +17,15 @@ class PagesController < ApplicationController
           name = d["name"]
           location = d["location"]
           day = day(d["start_time"])
-          time = d["start_time"]
+          time = d["start_time"].to_datetime
           start_time = time(d["start_time"])
           end_time = time(d["end_time"]) if d["end_time"]
-          @events << {:name => d["name"], :location => d["location"], :day => day, :time => time, :start_time => start_time, :end_time => end_time}
+          @events << {:id => d["id"], :name => d["name"], :location => d["location"], :day => day, :time => time, :start_time => start_time, :end_time => end_time}
         end
       end
     end
     
-    @events.uniq! {|e| e[:name]}.sort! {|x,y| x[:time] <=> y[:time]}
+    @events.uniq! {|e| e[:name]}.sort! {|x,y| x[:time] <=> y[:time]}.select! {|s| s[:time] > Time.now}
     
   end
   
