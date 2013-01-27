@@ -4,7 +4,7 @@ require 'date'
 class PagesController < ApplicationController
   def home
     
-    access_token = "AAACEdEose0cBAMhiJB39XeLSt9ZAXVXKG7GC2sD75NnsKmPqwnd5ZA3HRaoCZAzFSu0IXAAFsu0aZB0Spj8ZCB1qWU2YTqFLsfSQoBnumIQZDZD"
+    access_token = "AAACEdEose0cBAKNb5wADklG15MEYdsDZB4w09tyKf3dogqzYZCZAbZCqJTMwZCiUDq0qr9xGxGe1PQRN04EYlZCH28Yv83lLSl9UmVyl467QZDZD"
     uri = "https://graph.facebook.com/139326516123298?fields=members.fields(events)&access_token=#{access_token}"
     results = JSON.parse(open(uri).read)
     @events = []
