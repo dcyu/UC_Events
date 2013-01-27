@@ -1,0 +1,12 @@
+<h1>Events That Members of University of Chicago Class of 2015 are attending!</h1>
+
+
+
+<ul>
+	<% @events.each do |e| %>
+		<li><%= "#{e[:day]} #{e[:start_time]} - #{e[:end_time]}" %></li>
+		<li><%= e[:name] %></li>
+		<li><%= e[:location] %></li>
+		<hr />
+	<% end %>
+</ul>
