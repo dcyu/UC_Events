@@ -25,7 +25,9 @@ class PagesController < ApplicationController
       end
     end
     
-    @events.uniq! {|e| e[:name]}.sort! {|x,y| x[:time] <=> y[:time]}.select! {|s| s[:time] > Time.now}
+    @events.sort! {|x,y| x[:time] <=> y[:time]}.select! {|s| s[:time] > Time.now}
+    
+    @counts = @events.group_by{|i| i[:day]}
     
   end
   
